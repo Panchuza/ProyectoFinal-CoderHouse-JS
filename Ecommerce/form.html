@@ -14,49 +14,64 @@
     <title>Form</title>
   </head>
   <body>
-    <h1 class="m-4">Formulario de Registro</h1>
-    <form class="m-4">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label"
-          ><strong>Email:</strong></label
-        >
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Ingrese su mail"
-        />
-        <div id="emailHelp" class="form-text"></div>
+    <header>
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-black">
+            <div id="navcol" class="container-fluid">
+              <a class="navbar-brand" href="index.html"><img src="img/logo-template-for-furniture-company-the-logo-has-the-shape-of-a-dressing-table-vector.jpg" width="80"></a>
+              <button
+                class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                  <li class="nav item">
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                      <ul class="navbar-nav">
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="nav item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="col-md-1 d-flex align-items-center justify-content-end">
+          <a href="#" id="ecommerce" title="Go to Shop"></a>
+        </div> 
       </div>
-
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label"
-          ><strong>Contraseña:</strong></label
-        >
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="Ingrese su contraseña"
-        />
+    </header>
+    <main class="container py-3">
+      <h2 class="py-2">Formulario de Registro</h2>
+    <form class="row" id="form">
+      <div class="col-md-6 py-3">
+        <label class="form-label"><strong>Name:</strong></label>
+        <input type="text" class="form-control" id="name" placeholder="Enter your name..."/>
       </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1"
-          ><strong>Recuerdame</strong></label
-        >
+      <div class="col-md-6 py-3">
+        <label class="form-label"><strong>Last Name:</strong></label>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name..."/>
       </div>
-      <button type="submit" class="btn btn-primary">Registrar</button>
-      <a class="btn btn-primary m-1" href="index.html" role="button"
-        >Back</a
-      >
+      <div class="col-md-6 py-3">
+        <label class="form-label"><strong>Email:</strong></label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email..."/>
+      </div>
+      <div class="col-md-6 py-3">
+        <label class="form-label"><strong>Password:</strong></label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password..."/>
+      </div>
+      <button type="submit" id="Send" class="btn btn-secondary col-md-1 m-3">Send</button>
+      <button class="btn btn-secondary col-md-1 m-3" href="index.html" type="reset">Back</button>
+      <div class="col-md-6 py-3" id="result"></div>
     </form>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+    </main>
+    
+    <script src="js/form.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">    
+    </script>
   </body>
 </html>
