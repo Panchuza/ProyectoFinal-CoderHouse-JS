@@ -34,8 +34,17 @@ function getProductById(id){
 
 function addProduct(id){
     const productsCart = getProductsCart();
-    const product = getProductById(id);
-    productsCart.push(product);
+
+    let ind = productsCart.findIndex(item => item.id === id)
+
+    if(ind > -1){
+      productsCart[ind].amount += 1;
+    } else {
+      const product = getProductById(id);
+      product.amount = 1;
+      productsCart.push(product);
+    }
+
     saveProductsCart(productsCart);
     showCart();
 }
@@ -117,6 +126,5 @@ function filterProducts(category){
 }
 
 saveProductsLS(products);
-renderProducts();
-showCart();
+
 
