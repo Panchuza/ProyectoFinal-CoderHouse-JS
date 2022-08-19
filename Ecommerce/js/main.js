@@ -45,6 +45,7 @@ function addProduct(id){
       productsCart.push(product);
     }
 
+
     saveProductsCart(productsCart);
     showCart();
 }
@@ -53,10 +54,19 @@ function showCart(){
 
 const addProductsCart = getProductsCart();
 let quantity = addProductsCart.length;
-let content = `<a href="productsCart.html"><button type="button" class="btn btn-secondary">
-<img src="img/306793.svg" width="48"> <span class="badge text-bg-secondary">${quantity}</span>
-</button></a>`
-document.getElementById("ecommerce").innerHTML = content;
+let content = "";
+
+if(!quantity == 0){
+  content = `<a href="productsCart.html"><button type="button" class="btn btn-secondary">
+  <img src="img/306793.svg" width="48"> <span class="badge text-bg-secondary">${quantity}</span>
+  </button></a>`
+  document.getElementById("ecommerce").innerHTML = content;
+} else{
+  content = `<p class="text-white bg-danger p-3 text-center">Card is empty</p>`
+  document.getElementById("error").innerHTML = content;
+}
+
+
 }
 
 function renderProducts(){
@@ -123,6 +133,26 @@ function filterProducts(category){
           }
         });
     document.getElementById("products").innerHTML = content;
+}
+
+function showErrorCart(){
+  
+}
+
+function showCartEmptyError(){
+  Toastify({
+    text: "Error",
+    duration: 30000,
+    destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+  }).showToast();
 }
 
 saveProductsLS(products);

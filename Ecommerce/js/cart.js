@@ -29,6 +29,7 @@ function renderProductsCart(){
             <tr>
                 <td colspan="4">Final price</td>
                 <td><b><strong>$${finalPrice()}</strong></b></td> 
+                <td><button class="btn btn-secondary" onclick="showAlert();">Buy Items</button></td>
             </tr>
             </table>`;
 
@@ -95,3 +96,20 @@ function emptyCart(){
     renderProductsCart()
     updateCart();
 } 
+
+function showAlert(){
+    
+    Toastify({
+        text: "Thank you for buy in E-Movable",
+        duration: 30000,
+        destination: "https://github.com/apvarun/toastify-js",
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
+}

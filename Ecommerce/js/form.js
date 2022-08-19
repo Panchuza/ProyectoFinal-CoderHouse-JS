@@ -1,4 +1,5 @@
 let miForm = document.getElementById("form");
+/* let toastButton = document.getElementById("showToast"); */
 miForm.addEventListener("submit", validateForm);
 
 
@@ -52,59 +53,63 @@ function validateForm(e){
     
     e.preventDefault();
     
-    let nameForm = document.getElementById("name");
-    let lastName = document.getElementById("lastName");
-    let email = document.getElementById("email");
-    let password = document.getElementById("password"); 
+    let flag = true;
+    let nameForm = document.getElementById("name").value;
+    let lastName = document.getElementById("lastName").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value; 
 
-    if(nameForm.value == ""){
+    if(nameForm.trim() == ""){
         let content = `<p class="text-white bg-danger p-3">Name can not be null</p>`
         document.getElementById("showError").innerHTML = content;
+        flag = false;
         return false;
     }
-    if(lastName.value == ""){
+    if(lastName.trim() == ""){
         let content = `<p class="text-white bg-danger p-3">Last name can not be null</p>`
         document.getElementById("showError").innerHTML = content;
+        flag = false;
         return false;
     }
-    if(email.value == ""){
+    if(email.trim() == ""){
         let content = `<p class="text-white bg-danger p-3">Email can not be null</p>`
         document.getElementById("showError").innerHTML = content;
+        flag = false;
         return false;
     }
-    if(password.value == ""){
+    if(password.trim() == ""){
         let content = `<p class="text-white bg-danger p-3">Password can not be null</p>`
         document.getElementById("showError").innerHTML = content;
+        flag = false;
         return false;
     }
 
-    miForm.submit();
+    if(flag = true){
+          showAlert();
+          miForm.submit();
+    }
+    
+    
+
+    
+
+}
+function showAlert(){
+    
+    content = Toastify({
+        text: "This is a toast",
+        duration: 30000,
+        destination: "https://github.com/apvarun/toastify-js",
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
 }
 
-//TEST 
-
-/* <div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <img src="..." class="rounded me-2" alt="...">
-      <strong class="me-auto">¡Congratulations!</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-    You're now part of E-Movables
-    </div>
-  </div>
-</div> */
-
-
-/* `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">¡Congratulations!</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-        You're now part of E-Movables
-        </div>
-      </div>` */
 
 
