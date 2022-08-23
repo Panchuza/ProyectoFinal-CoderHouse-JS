@@ -10,7 +10,7 @@ function renderProductsCart(){
         
         content += `<table class="table">
                     <tr>
-                        <td class="text-end" colspan="6"><a href="productsCart.html" class="btn btn-dark" onclick="emptyCart();">Delete Cart</a></td>
+                        <td class="text-end" colspan="6"><a class="btn btn-dark" onclick="showSweetAlertDeleteCart();">Delete Cart</a></td>
                     </tr>`
             products.forEach((product) => {
 
@@ -72,6 +72,7 @@ function deleteProductFromCart(id){
     renderProductsCart();
     updateCart();    
 }
+
 function updateCart(){
     const cartProducts = getProductsCart();
 
@@ -112,4 +113,23 @@ function showAlert(){
         onClick: function(){} // Callback after click
       }).showToast();
 
+}
+
+function showSweetAlertDeleteCart(){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You are deleted the whole cart",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Your Cart has been deleted.'
+          )
+          emptyCart();   
+        }
+      })
 }

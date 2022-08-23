@@ -1,5 +1,4 @@
 let miForm = document.getElementById("form");
-/* let toastButton = document.getElementById("showToast"); */
 miForm.addEventListener("submit", validateForm);
 
 
@@ -85,31 +84,23 @@ function validateForm(e){
     }
 
     if(flag = true){
-          showAlert();
-          miForm.submit();
+          showMessageSubmit();
     }
-    
-    
-
+    /* miForm.submit(); */
     
 
-}
-function showAlert(){
     
-    content = Toastify({
-        text: "This is a toast",
-        duration: 30000,
-        destination: "https://github.com/apvarun/toastify-js",
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-        onClick: function(){} // Callback after click
-      }).showToast();
 
 }
+function showMessageSubmit(){
+    Swal.fire({
+      icon: 'success',
+      title: '¡You are now Registered!',
+      showConfirmButton: false,
+      timer: 15000,
+      footer: '<button class="btn btn-warning"><a href="index.html">Go back to shop!</a></button>'
+    })
+  }
 
 
 

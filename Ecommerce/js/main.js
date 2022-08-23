@@ -32,6 +32,9 @@ function getProductById(id){
     return products.find(item => item.id === id);
 }
 
+const productsCart = getProductsCart();
+(productsCart.length == 0 ? showMessageEmpty() : showCart());
+
 function addProduct(id){
     const productsCart = getProductsCart();
 
@@ -56,16 +59,10 @@ const addProductsCart = getProductsCart();
 let quantity = addProductsCart.length;
 let content = "";
 
-if(!quantity == 0){
   content = `<a href="productsCart.html"><button type="button" class="btn btn-secondary">
   <img src="img/306793.svg" width="48"> <span class="badge text-bg-secondary">${quantity}</span>
   </button></a>`
   document.getElementById("ecommerce").innerHTML = content;
-} else{
-  content = `<p class="text-white bg-danger p-3 text-center">Card is empty</p>`
-  document.getElementById("error").innerHTML = content;
-}
-
 
 }
 
@@ -135,25 +132,16 @@ function filterProducts(category){
     document.getElementById("products").innerHTML = content;
 }
 
-function showErrorCart(){
-  
+function showMessageEmpty(){
+  Swal.fire({
+    icon: 'error',
+    title: 'Your cart is empty',
+    showConfirmButton: false,
+    timer: 15000,
+    footer: '<button class="btn btn-warning"><a href="index.html">Go back to shop!</a></button>'
+  })
 }
 
-function showCartEmptyError(){
-  Toastify({
-    text: "Error",
-    duration: 30000,
-    destination: "https://github.com/apvarun/toastify-js",
-    newWindow: true,
-    close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "linear-gradient(to right, #00b09b, #96c93d)",
-    },
-  }).showToast();
-}
 
 saveProductsLS(products);
 
