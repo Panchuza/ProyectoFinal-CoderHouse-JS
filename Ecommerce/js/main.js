@@ -32,8 +32,6 @@ function getProductById(id){
     return products.find(item => item.id === id);
 }
 
-const productsCart = getProductsCart();
-(productsCart.length == 0 ? showMessageEmpty() : showCart());
 
 function addProduct(id){
     const productsCart = getProductsCart();

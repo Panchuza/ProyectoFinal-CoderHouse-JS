@@ -33,8 +33,8 @@ function renderProducts(){
                 <img src="img/${product.image}" class="card-img-top" alt="imagen">
                 <div class="card-body text-center">
                   <h5 class="card-title">${product.name}</h5>
-                  <p class="card-text">${product.description}</p>
-                  <a class="btn btn-dark" onclick="addProduct(${product.id})">Agregar (+)</a>
+                  <a class="btn btn-dark" onclick="addProduct(${product.id})">Add (+)</a>
+                  <a class="btn btn-dark" onclick="addProductToView(${product.id})" href="productView.html">See Product</a>
                 </div>
               </div>
               </div>`;

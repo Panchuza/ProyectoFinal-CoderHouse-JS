@@ -70,7 +70,8 @@ function deleteProductFromCart(id){
 
     saveProductsCart(cartProducts);
     renderProductsCart();
-    updateCart();    
+    updateCart();
+    showToastItemDeleted();    
 }
 
 function updateCart(){
@@ -96,6 +97,8 @@ function emptyCart(){
     localStorage.removeItem("productsCart");
     renderProductsCart()
     updateCart();
+    let content = "";
+    document.getElementById("cartEmpty").innerHTML = content; 
 } 
 
 function showAlert(){
@@ -109,8 +112,7 @@ function showAlert(){
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
           background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-        onClick: function(){} // Callback after click
+        }
       }).showToast();
 
 }
@@ -129,7 +131,25 @@ function showSweetAlertDeleteCart(){
           Swal.fire(
             'Your Cart has been deleted.'
           )
-          emptyCart();   
+          emptyCart();  
         }
       })
 }
+
+function showToastItemDeleted(){
+    Toastify({
+        duration: 1500,
+        newWindow: true,
+        close: true,
+        position: "right",
+        gravity: "bottom",
+        stopOnFocus: true, 
+        text: "Item Deleted",
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+      }).showToast();
+}
+
+const productsCart = getProductsCart();
+(productsCart.length == 0 ? showMessageEmpty() : showCart());
