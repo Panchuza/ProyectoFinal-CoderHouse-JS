@@ -34,7 +34,7 @@ function renderProducts(){
                 <div class="card-body text-center">
                   <h5 class="card-title">${product.name}</h5>
                   <a class="btn btn-dark" onclick="addProduct(${product.id})">Add (+)</a>
-                  <a class="btn btn-dark" onclick="addProductToView(${product.id})" href="productView.html">See Product</a>
+                  <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="addProductToView(${product.id})">See Product</a>
                 </div>
               </div>
               </div>`;
@@ -45,3 +45,39 @@ function renderProducts(){
 
 renderProducts();
 showCart();
+
+
+function saveProductView(product){
+  localStorage.setItem("productView", JSON.stringify(product));
+}
+
+function getProductView(){
+  return JSON.parse(localStorage.getItem("productView")) || [];
+}
+
+function addProductToView(id){
+
+  const productView = getProductById(id);
+  let modalView = document.getElementById("modalView")
+
+  document.getElementById("idToShow").innerHTML = `<h5 class="modal-title">${productView.name}</h5>`
+
+ let content = `<img src="img/${productView.image}" class="card-img-top" alt="imagen">
+                <p class="card-text">$${productView.price}</p>
+                <p class="card-text">${productView.description}</p>`
+
+  document.getElementById("bodyModal").innerHTML = content;
+
+  modalView.style.display = "block";
+  
+  /* span.onclick = function() {
+    modalView.style.display = "none";
+  } */
+
+  window.onclick = function(event){
+    if (event.target == modalView){
+      modalView.style.display = "none";
+    }
+  }
+} 
+

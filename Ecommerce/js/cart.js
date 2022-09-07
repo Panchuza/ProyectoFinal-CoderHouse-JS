@@ -27,9 +27,9 @@ function renderProductsCart(){
             });
             content += `
             <tr>
-                <td colspan="4">Final price</td>
+                <td colspan="4"><strong>Final price</strong></td>
                 <td><b><strong>$${finalPrice()}</strong></b></td> 
-                <td><button class="btn btn-secondary" onclick="showAlert();">Buy Items</button></td>
+                <td><button class="btn btn-secondary" onclick="buyCart();">Buy Items</button></td>
             </tr>
             </table>`;
 
@@ -40,6 +40,31 @@ function renderProductsCart(){
 renderProductsCart();
 showCart();
 
+function buyCart(){
+    const productsCart = getProductsCart();
+    const products = getProductsLS();
+
+    for (const product of productsCart) {
+        if(product.stock == product.amount){
+            productsCart.splice(0, 1);
+            localStorage.setItem('productsCart',JSON.stringify(productsCart));
+            refreshCart();
+        } else {
+            product.stock = product.stock - product.amount;
+            productsCart.splice(0, 1);
+            localStorage.setItem('productsCart',JSON.stringify(productsCart));
+            localStorage.setItem('products',JSON.stringify(products));
+            refreshCart();
+        }
+    }
+    
+}
+
+
+function refreshCart(){
+    let content = "";
+    content += `<a href="productsCart.html"></a>`
+}
 function deleteItem(id){
     const cartProducts = getProductsCart();
     let pos = cartProducts.findIndex(item => item.id === id);
@@ -55,29 +80,40 @@ function deleteItem(id){
 function addItem(id){
     const cartProducts = getProductsCart();
     let pos = cartProducts.findIndex(item => item.id === id);
+    let product = getProductById(id);
 
-    cartProducts[pos].amount += 1;
-    saveProductsCart(cartProducts);
-    renderProductsCart()
-    updateCart();
+    
+    if(cartProducts[pos].amount < product.stock){
+        cartProducts[pos].amount += 1;
+        showCart();
+        saveProductsCart(cartProducts);
+        renderProductsCart()
+        updateCart();
+    } else {
+        showAlertStock();
+    }
+    
 }
 
 function deleteProductFromCart(id){
+    
     const cartProducts = getProductsCart();
     let pos = cartProducts.findIndex(item => item.id === id);
-
+    
     cartProducts.splice(pos, 1);
 
     saveProductsCart(cartProducts);
     renderProductsCart();
     updateCart();
-    showToastItemDeleted();    
+    showToastItemDeleted();
+       
 }
 
 function updateCart(){
     const cartProducts = getProductsCart();
 
     let amount = cartProducts.length;
+     
 
     let content = 
     `<a href="productsCart.html"><button type="button" class="btn btn-secondary">
@@ -98,7 +134,8 @@ function emptyCart(){
     renderProductsCart()
     updateCart();
     let content = "";
-    document.getElementById("cartEmpty").innerHTML = content; 
+    document.getElementById("cartEmpty").innerHTML = content;
+
 } 
 
 function showAlert(){
@@ -117,6 +154,23 @@ function showAlert(){
 
 }
 
+function showAlertStock(){
+    
+    Toastify({
+        text: "Stock is empty",
+        icon: 'warning',
+        duration: 1000,
+        destination: "https://github.com/apvarun/toastify-js",
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: false, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+      }).showToast();
+
+}
+
 function showSweetAlertDeleteCart(){
     Swal.fire({
         title: 'Are you sure?',
@@ -128,10 +182,9 @@ function showSweetAlertDeleteCart(){
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            'Your Cart has been deleted.'
-          )
-          emptyCart();  
+          refreshCart();
+          emptyCart();
+          window.location.href = "productsCart.html";
         }
       })
 }
