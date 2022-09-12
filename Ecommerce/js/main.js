@@ -26,7 +26,21 @@ function getProductsCart(){
     return JSON.parse(localStorage.getItem("productsCart")) || [];
 }
 
+function saveUserLS(users){
+  localStorage.setItem("users", JSON.stringify(users));
+}
 
+function getUserLS(){
+  return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveSoldProducts(soldProducts){
+  localStorage.setItem("soldProducts", JSON.stringify(soldProducts));
+}
+
+function getSoldProducts(){
+  return JSON.parse(localStorage.getItem("soldProducts")) || [];
+}
 
 function getProductById(id){
     
@@ -51,6 +65,7 @@ function addProduct(id){
 
     saveProductsCart(productsCart);
     showCart();
+    showToastItemAdded();
 }
 
 function showCart(){
@@ -67,7 +82,6 @@ let content = "";
 }
 
 
-
 function filterProducts(category){
   const products = getProductsLS();
     let content = "";
@@ -81,6 +95,7 @@ function filterProducts(category){
               <h5 class="card-title">${product.name}</h5>
               <p class="card-text">${product.description}</p>
               <a class="btn btn-dark" onclick="addProduct(${product.id})">Add (+)</a>
+              <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="addProductToView(${product.id})">See Product</a>
             </div>
           </div>
           </div>`;
@@ -99,6 +114,20 @@ function showMessageEmpty(){
   })
 }
 
+function showToastItemAdded(){
+  Toastify({
+      duration: 1500,
+      newWindow: true,
+      close: true,
+      position: "right",
+      gravity: "bottom",
+      stopOnFocus: true, 
+      text: "Item Added",
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      }
+    }).showToast();
+} 
 
 saveProductsLS(products);
 

@@ -42,24 +42,36 @@ showCart();
 
 function buyCart(){
     const productsCart = getProductsCart();
-    const products = getProductsLS();
+    let productsAvalaibles = getProductsLS();
+    let soldProducts = getSoldProducts();
+    let pos;
 
     for (const product of productsCart) {
-        if(product.stock == product.amount){
-            productsCart.splice(0, 1);
-            localStorage.setItem('productsCart',JSON.stringify(productsCart));
-            refreshCart();
-        } else {
-            product.stock = product.stock - product.amount;
-            productsCart.splice(0, 1);
-            localStorage.setItem('productsCart',JSON.stringify(productsCart));
-            localStorage.setItem('products',JSON.stringify(products));
-            refreshCart();
-        }
-    }
-    
-}
+        soldProducts.push(product);
 
+        let id = product.id;
+        pos = productsAvalaibles.findIndex(item => item.id === id);
+        productsAvalaibles.splice(pos, 1);
+    }
+    saveSoldProducts(soldProducts);
+    if(productsCart.length != 0){
+        Swal.fire({
+            title: '¡Congrats!',
+            text: "Thanks for buying in E-Movables!",
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Go back'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              refreshCart();
+              emptyCart();
+              window.location.href = "index.html";
+            }
+          })
+    }
+}
 
 function refreshCart(){
     let content = "";
@@ -137,22 +149,6 @@ function emptyCart(){
     document.getElementById("cartEmpty").innerHTML = content;
 
 } 
-
-function showAlert(){
-    
-    Toastify({
-        text: "Thank you for buy in E-Movable",
-        duration: 30000,
-        destination: "https://github.com/apvarun/toastify-js",
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
-        }
-      }).showToast();
-
-}
 
 function showAlertStock(){
     

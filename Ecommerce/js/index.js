@@ -70,14 +70,12 @@ function addProductToView(id){
 
   modalView.style.display = "block";
   
-  /* span.onclick = function() {
-    modalView.style.display = "none";
-  } */
 
   window.onclick = function(event){
     if (event.target == modalView){
       modalView.style.display = "none";
     }
   }
-} 
+}
+
 
