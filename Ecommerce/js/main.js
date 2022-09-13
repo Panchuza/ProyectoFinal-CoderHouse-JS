@@ -42,6 +42,14 @@ function getSoldProducts(){
   return JSON.parse(localStorage.getItem("soldProducts")) || [];
 }
 
+function saveUserSS(userSS){
+  sessionStorage.setItem("userSS", JSON.stringify(userSS));
+}
+
+function getUserSS(){
+  return JSON.parse(sessionStorage.getItem("userSS")) || [];
+}
+
 function getProductById(id){
     
     const products = getProductsLS();
@@ -50,6 +58,7 @@ function getProductById(id){
 
 
 function addProduct(id){
+  if(validateLogin()){
     const productsCart = getProductsCart();
 
     let ind = productsCart.findIndex(item => item.id === id)
@@ -62,10 +71,24 @@ function addProduct(id){
       productsCart.push(product);
     }
 
-
     saveProductsCart(productsCart);
     showCart();
     showToastItemAdded();
+  }
+}
+
+function validateLogin(){
+  let flag = true;
+  const user = getUserSS();
+  if(user.length == 0){
+    flag = false;
+    Swal.fire({
+      icon: 'error',
+      text: 'Need to log in to buy a product',
+      footer: '<a href="login.html">Go to Log In</a>'
+    })
+  }
+  return flag;
 }
 
 function showCart(){
